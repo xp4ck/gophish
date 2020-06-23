@@ -111,6 +111,7 @@ func ValidateTemplate(text string) error {
 			FirstName: "Foo",
 			LastName:  "Bar",
 			Position:  "Test",
+			FirstNameEng:  "Foo",
 		},
 		RId: "123456",
 	}

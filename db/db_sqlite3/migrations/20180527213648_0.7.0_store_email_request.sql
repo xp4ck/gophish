@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS "email_requests" (
     "page_id" integer,
     "first_name" varchar(255),
     "last_name" varchar(255),
+    "first_name_eng" varchar(255),
     "email" varchar(255),
     "position" varchar(255),
     "url" varchar(255),

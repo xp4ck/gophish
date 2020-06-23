@@ -8,7 +8,8 @@ function save(id) {
             first_name: unescapeHtml(target[0]),
             last_name: unescapeHtml(target[1]),
             email: unescapeHtml(target[2]),
-            position: unescapeHtml(target[3])
+            position: unescapeHtml(target[3]),
+            first_name_eng: unescape(target[4])
         })
     })
     var group = {
@@ -183,7 +184,7 @@ var deleteGroup = function (id) {
     })
 }
 
-function addTarget(firstNameInput, lastNameInput, emailInput, positionInput) {
+function addTarget(firstNameInput, lastNameInput, emailInput, positionInput, firstNameEngInput) {
     // Create new data row.
     var email = escapeHtml(emailInput).toLowerCase();
     var newRow = [
@@ -191,6 +192,7 @@ function addTarget(firstNameInput, lastNameInput, emailInput, positionInput) {
         escapeHtml(lastNameInput),
         email,
         escapeHtml(positionInput),
+        escapeHtml(firstNameEngInput),
         '<span style="cursor:pointer;"><i class="fa fa-trash-o"></i></span>'
     ];
 
@@ -272,7 +274,8 @@ $(document).ready(function () {
             $("#firstName").val(),
             $("#lastName").val(),
             $("#email").val(),
-            $("#position").val());
+            $("#position").val(),
+            $("#firstNameEng").val());
         targets.DataTable().draw();
 
         // Reset user input.
