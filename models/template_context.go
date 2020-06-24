@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+	"strconv"
 	"bytes"
 	"net/mail"
 	"net/url"
@@ -24,6 +26,9 @@ type PhishingTemplateContext struct {
 	TrackingURL string
 	RId         string
 	BaseURL     string
+	CurrentYear string
+	CurrentDay  string
+	CurrentMonth string
 	BaseRecipient
 }
 
@@ -60,6 +65,7 @@ func NewPhishingTemplateContext(ctx TemplateContext, r BaseRecipient, rid string
 	trackingURL, _ := url.Parse(templateURL)
 	trackingURL.Path = path.Join(trackingURL.Path, "/track")
 	trackingURL.RawQuery = q.Encode()
+	year, month, day := time.Now().Date()
 
 	return PhishingTemplateContext{
 		BaseRecipient: r,
@@ -69,6 +75,9 @@ func NewPhishingTemplateContext(ctx TemplateContext, r BaseRecipient, rid string
 		Tracker:       "<img alt='' style='display: none' src='" + trackingURL.String() + "'/>",
 		From:          fn,
 		RId:           rid,
+		CurrentYear:   strconv.Itoa(year),
+		CurrentDay:    strconv.Itoa(day),
+		CurrentMonth:  strconv.Itoa(int(month)),
 	}, nil
 }
 
@@ -112,6 +121,7 @@ func ValidateTemplate(text string) error {
 			LastName:  "Bar",
 			Position:  "Test",
 			FirstNameEng:  "Foo",
+			LastNameEng:  "Bar",
 		},
 		RId: "123456",
 	}

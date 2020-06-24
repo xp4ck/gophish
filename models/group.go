@@ -58,6 +58,7 @@ type BaseRecipient struct {
 	LastName  string `json:"last_name"`
 	Position  string `json:"position"`
 	FirstNameEng  string `json:"first_name_eng"`
+	LastNameEng   string `json:"last_name_eng"`
 }
 
 // FormatAddress returns the email address to use in the "To" header of the email
@@ -348,6 +349,7 @@ func UpdateTarget(tx *gorm.DB, target Target) error {
 		"last_name":  target.LastName,
 		"position":   target.Position,
 		"first_name_eng":  target.FirstNameEng,
+		"last_name_eng": target.LastNameEng,
 	}
 	err := tx.Model(&target).Where("id = ?", target.Id).Updates(targetInfo).Error
 	if err != nil {
@@ -361,6 +363,6 @@ func UpdateTarget(tx *gorm.DB, target Target) error {
 // GetTargets performs a many-to-many select to get all the Targets for a Group
 func GetTargets(gid int64) ([]Target, error) {
 	ts := []Target{}
-	err := db.Table("targets").Select("targets.id, targets.email, targets.first_name, targets.last_name, targets.position, targets.first_name_eng").Joins("left join group_targets gt ON targets.id = gt.target_id").Where("gt.group_id=?", gid).Scan(&ts).Error
+	err := db.Table("targets").Select("targets.id, targets.email, targets.first_name, targets.last_name, targets.position, targets.first_name_eng, targets.last_name_eng").Joins("left join group_targets gt ON targets.id = gt.target_id").Where("gt.group_id=?", gid).Scan(&ts).Error
 	return ts, err
 }
